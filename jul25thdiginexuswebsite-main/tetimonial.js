@@ -48,9 +48,12 @@ function createTestimonialCard(testimonial) {
 
 function populateTestimonials() {
   const container = document.getElementById("testimonialContainer");
-  if (!container) return;
+  if (!container) {
+    console.error("Testimonial container not found");
+    return;
+  }
 
-  // Clear existing content first
+  // Clear existing content to avoid duplication
   container.innerHTML = "";
 
   // Add all testimonials
@@ -59,59 +62,92 @@ function populateTestimonials() {
   });
 }
 
-// Standalone function to initialize testimonial slider when coursepage.js is not loaded
-function initTestimonialSlider() {
-  const container = document.getElementById("testimonialContainer");
+document.addEventListener("DOMContentLoaded", () => {
+  populateTestimonials();
+
+  // Set up slider functionality with a slight delay to ensure testimonial cards are rendered
+  setTimeout(() => {
+    initializeTestimonialSlider();
+    centerTestimonialsIfNeeded();
+  }, 200);
+});
+
+// Center testimonials if container width is greater than cards' combined width
+function centerTestimonialsIfNeeded() {
+  const container = document.getElementById('testimonialContainer');
   if (!container) return;
 
-  const testimonialCards = container.querySelectorAll(".testimonial-card");
-  if (!testimonialCards.length) return;
+  const containerWidth = container.parentElement.offsetWidth;
+  const cards = container.querySelectorAll('.testimonial-card');
 
+  let totalWidth = 0;
+  cards.forEach(card => {
+    const style = window.getComputedStyle(card);
+    const width = card.offsetWidth +
+      parseInt(style.marginLeft || 0) +
+      parseInt(style.marginRight || 0);
+    totalWidth += width;
+  });
+
+  if (containerWidth > totalWidth) {
+    container.style.justifyContent = 'center';
+  }
+}
+
+function initializeTestimonialSlider() {
+  const container = document.getElementById("testimonialContainer");
+  if (!container) {
+    console.error("Testimonial container not found during slider initialization");
+    return;
+  }
+
+  const testimonialCards = document.querySelectorAll(".testimonial-card");
+  if (!testimonialCards.length) {
+    console.error("No testimonial cards found");
+    return;
+  }
+
+  // Get or create slider track
   const carouselDiv = document.getElementById("testimonialCarousel");
-  if (!carouselDiv) return;
+  if (!carouselDiv) {
+    console.error("Testimonial carousel div not found");
+    return;
+  }
 
-  // Check if slider container already exists
-  let sliderContainer = document.querySelector('.testimonial-slider-container');
-  let sliderTrack = document.querySelector('.testimonial-slider-track');
-  let sliderClickArea = document.querySelector('.testimonial-slider-click-area');
+  // Find the slider container and track in the DOM
+  let sliderContainer = carouselDiv.querySelector('.testimonial-slider-container');
+  let sliderTrack = sliderContainer ? sliderContainer.querySelector('.testimonial-slider-track') : null;
+  let sliderClickArea = sliderTrack ? sliderTrack.querySelector('.testimonial-slider-click-area') : null;
 
-  // If slider elements don't exist, create them
-  if (!sliderContainer) {
-    sliderContainer = document.createElement("div");
-    sliderContainer.className = "testimonial-slider-container";
+  // Clear existing dots if any
+  if (sliderTrack) {
+    // Keep the click area if it exists
+    const clickArea = sliderTrack.querySelector('.testimonial-slider-click-area');
+    sliderTrack.innerHTML = '';
+    if (clickArea) sliderTrack.appendChild(clickArea);
+  }
 
-    sliderTrack = document.createElement("div");
-    sliderTrack.className = "testimonial-slider-track";
-    sliderContainer.appendChild(sliderTrack);
+  let currentIndex = 0;
+  const totalSlides = testimonialCards.length;
 
+  // Handle click on the slider track for navigation
+  if (sliderClickArea) {
+    sliderClickArea.addEventListener("click", (e) => {
+      const rect = sliderTrack.getBoundingClientRect();
+      const position = (e.clientX - rect.left) / rect.width;
+      const targetIndex = Math.min(Math.floor(position * totalSlides), totalSlides - 1);
+      goToSlide(targetIndex);
+    });
+  } else if (sliderTrack) {
+    // If click area doesn't exist, create one
     sliderClickArea = document.createElement("div");
     sliderClickArea.className = "testimonial-slider-click-area";
     sliderTrack.appendChild(sliderClickArea);
 
-    // Add slider after testimonial container
-    carouselDiv.appendChild(sliderContainer);
-  }
-
-  // Remove any existing arrow buttons if they exist
-  const prevButton = document.getElementById("prevTestimonialButton");
-  const nextButton = document.getElementById("nextTestimonialButton");
-
-  if (prevButton) prevButton.remove();
-  if (nextButton) nextButton.remove();
-
-  let currentIndex = 0;
-
-  // Handle click on the slider bar
-  if (sliderClickArea) {
-    // Remove existing event listeners by cloning and replacing
-    const newSliderClickArea = sliderClickArea.cloneNode(true);
-    sliderClickArea.parentNode.replaceChild(newSliderClickArea, sliderClickArea);
-    sliderClickArea = newSliderClickArea;
-
     sliderClickArea.addEventListener("click", (e) => {
-      const rect = sliderClickArea.getBoundingClientRect();
+      const rect = sliderTrack.getBoundingClientRect();
       const position = (e.clientX - rect.left) / rect.width;
-      const targetIndex = Math.min(Math.floor(position * testimonials.length), testimonials.length - 1);
+      const targetIndex = Math.min(Math.floor(position * totalSlides), totalSlides - 1);
       goToSlide(targetIndex);
     });
   }
@@ -125,14 +161,36 @@ function initTestimonialSlider() {
       parseInt(cardStyle.marginLeft || 0) +
       parseInt(cardStyle.marginRight || 0);
 
-    // Update the transform to move to the selected slide
+    // Update container position
     container.style.transform = `translateX(-${index * cardWidth}px)`;
 
-    // Update the slider position
+    // Update slider position
+    updateSliderTrackPosition(index);
+  }
+
+  function updateSliderTrackPosition(index) {
     if (sliderTrack) {
-      // Calculate the position percentage for the slider thumb
-      const slidePercentage = testimonials.length > 1 ? (index / (testimonials.length - 1)) * 100 : 0;
+      // Calculate the position percentage for the slider
+      const slidePercentage = totalSlides > 1 ? (index / (totalSlides - 1)) * 100 : 0;
+
+      // Update CSS variable
       sliderTrack.style.setProperty('--active-position', `${slidePercentage}%`);
+
+      // Update width based on number of slides
+      const sectionWidth = 100 / totalSlides;
+      sliderTrack.style.setProperty('--active-width', `${sectionWidth}%`);
+
+      // For browsers that don't support CSS variables in pseudo-elements
+      const styleTag = document.createElement('style');
+      styleTag.textContent = `.testimonial-slider-track::before { 
+        left: ${slidePercentage}%; 
+        width: ${sectionWidth}%;
+      }`;
+      document.head.appendChild(styleTag);
+
+      setTimeout(() => {
+        document.head.removeChild(styleTag);
+      }, 500);
     }
   }
 
@@ -143,15 +201,11 @@ function initTestimonialSlider() {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  // Remove existing listeners by cloning and replacing
-  const newContainer = container.cloneNode(true);
-  container.parentNode.replaceChild(newContainer, container);
-
-  newContainer.addEventListener("touchstart", (e) => {
+  container.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
   });
 
-  newContainer.addEventListener("touchend", (e) => {
+  container.addEventListener("touchend", (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   });
@@ -160,25 +214,36 @@ function initTestimonialSlider() {
     const swipeThreshold = 50;
     if (touchEndX < touchStartX - swipeThreshold) {
       // Swipe left - go to next slide
-      const nextIndex = (currentIndex + 1) % testimonials.length;
+      const nextIndex = (currentIndex + 1) % totalSlides;
       goToSlide(nextIndex);
     } else if (touchEndX > touchStartX + swipeThreshold) {
       // Swipe right - go to previous slide
-      const prevIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+      const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       goToSlide(prevIndex);
     }
   }
+
+  // Optional: Auto-scroll functionality
+  let autoScrollInterval;
+
+  function startAutoScroll() {
+    autoScrollInterval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % totalSlides;
+      goToSlide(nextIndex);
+    }, 5000); // Change slide every 5 seconds
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  // Start auto-scroll initially
+  startAutoScroll();
+
+  // Pause on hover
+  carouselDiv.addEventListener("mouseenter", stopAutoScroll);
+  carouselDiv.addEventListener("mouseleave", startAutoScroll);
 }
-
-// Initialize testimonials on page load
-document.addEventListener("DOMContentLoaded", () => {
-  populateTestimonials();
-
-  // Always initialize the testimonial slider with sliding bar functionality
-  setTimeout(() => {
-    initTestimonialSlider();
-  }, 500); // Small delay to ensure DOM is fully ready
-});
 
 
 

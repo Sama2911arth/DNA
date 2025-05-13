@@ -12,11 +12,10 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" href="./coursepage-style.css" />
-  <!-- Load scripts with defer attribute to ensure they're available when DOM loads -->
+  <script src="./tetimonial.js" defer></script>
   <script src="./coursepage.js" defer></script>
   <script src="./script.js" defer></script>
-  <script src="./tetimonial.js" defer></script>
-  <title>Digital Nexus AI</title>
+  <title>Courses - Digital Nexus AI</title>
 </head>
 
 <body>
@@ -307,18 +306,9 @@
           </div>
         </div>
       </div>
-      <!-- Show these controls as we're using them now -->
-      <button class="carousel-control left" id="carouselPrevBtn">
-        <img src="./images/Forward.svg" alt="left" />
-      </button>
-      <button class="carousel-control right" id="carouselNextBtn">
-        <img src="./images/Forward-right.svg" alt="right" />
-      </button>
-      <!-- Slider bar (hidden by CSS in carousel but kept for JS functionality) -->
+      <!-- Replace arrow controls with slider bar -->
       <div class="carousel-slider-container">
-        <div class="carousel-slider-track">
-          <div class="carousel-slider-click-area"></div>
-        </div>
+        <div class="carousel-slider-track"></div>
       </div>
     </div>
   </section>
@@ -913,21 +903,15 @@
       </div>
       <div class="sadrzi-oba-kontejnera">
         <div class="testimonial-carousel" id="testimonialCarousel">
-          <div class="testimonial-container" id="testimonialContainer">
-            <!-- Testimonial cards will be added by JavaScript -->
-          </div>
-          <!-- Slider bar -->
+          <div class="testimonial-container" id="testimonialContainer"></div>
+          <!-- Slider bar container -->
           <div class="testimonial-slider-container">
-            <div class="testimonial-slider-track">
-              <div class="testimonial-slider-click-area"></div>
-            </div>
+            <div class="testimonial-slider-track"></div>
           </div>
-          <!-- Removing arrow controls -->
         </div>
       </div>
     </div>
   </section>
-
   <!-- end of Testimonial carousel -->
 
   <footer class="footer">

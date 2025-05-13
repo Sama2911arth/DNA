@@ -160,13 +160,12 @@ a.register-btn:hover {
   margin: 125px 0 1rem 0;
   display: flex;
   justify-content: left;
-
 }
 
 .course-nav a {
   font-size: 1rem;
   display: inline;
-  color: rgb(11, 11, 11);
+  color: rgb(255, 255, 255);
   font-family: "Exo", sans-serif;
   text-decoration: none;
   font-weight: 500;
@@ -176,6 +175,7 @@ a.register-btn:hover {
   margin: 5px 5px 0 5px;
   height: 10px;
   width: 10px;
+  filter: brightness(0) invert(1);
 }
 
 .course-details {
@@ -448,59 +448,6 @@ a.register-btn:hover {
   border-top: 1px solid;
   padding: 16px 0 24px 0;
   border-image: linear-gradient(90deg, #00cbff 0%, #ff6200 100%) 1;
-}
-
-.course-instructor {
-  margin-top: 128px;
-  width: 412px;
-  max-height: 495px;
-  padding: 40px;
-  background-color: white;
-  box-shadow: 5px 5px 15px 0 rgba(6, 11, 19, 0.25);
-  border-radius: 50px;
-}
-
-.course-instructor h2 {
-  font-family: "Exo", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.course-instructor img {
-  width: 183px;
-  height: 183px;
-  margin: 0 auto;
-}
-
-.course-instructor-name {
-  font-family: "Raleway", sans-serif;
-  font-size: 21px;
-  font-weight: 500;
-  text-align: center;
-  margin-top: 13px;
-}
-
-.course-instructor-about {
-  margin: 8px 0 24px;
-  font-family: "Raleway", sans-serif;
-  font-size: 16px;
-}
-
-.course-instructor-links {
-  margin: 0 52px;
-  list-style-type: none;
-  display: flex;
-  gap: 24px;
-}
-
-.course-instructor-links img {
-  width: 60px;
-  height: 60px;
-}
-
-.show {
-  display: flex;
 }
 
 .course-instructor {
@@ -1714,12 +1661,14 @@ a.register-btn:hover {
 }
 
 .navigation {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  position: relative;
-  background-color: #0e1826;
+  font-family: "Inter", sans-serif;
+  padding: 17px 0 17px;
+  height: auto;
 }
 
 .navigation__logo-container {
@@ -1727,129 +1676,132 @@ a.register-btn:hover {
   align-items: center;
 }
 
-.navigation__logo-text {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-}
-
 .navigation__logo-image {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+  width: 60px;
+  height: 60px;
 }
 
 .navigation__logo-title {
-  font-family: "Exo", sans-serif;
   font-size: 1.5rem;
-  color: white;
+  font-weight: 400;
+  line-height: 1.8rem;
+  color: #ffffff;
+  font-family: "Exo", sans-serif;
 }
 
 .navigation__nav-container {
   display: flex;
-  flex: 1;
   justify-content: center;
 }
 
-.navigation__nav-list {
+.navigation__menu {
   display: flex;
+  justify-content: center;
+}
+
+.navigation__list {
   list-style: none;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-}
-
-.navigation__nav-link {
-  color: white;
-  text-decoration: none;
-  font-family: "Raleway", sans-serif;
-  font-size: 1rem;
-  padding: 5px 10px;
-  transition: all 0.3s ease;
-}
-
-.navigation__nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-}
-
-.navigation__btn-container {
   display: flex;
-  gap: 15px;
-  align-items: center;
+  gap: 2.5vw;
 }
 
 .navigation__link {
-  color: white;
-  text-decoration: none;
   font-family: "Raleway", sans-serif;
-  font-size: 1rem;
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.36rem;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 16px;
+  position: relative;
+}
+
+.navigation__link:hover::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 50px;
+  background-color: #0e1826;
+  z-index: -1;
 }
 
 .navigation__link--login {
-  background: linear-gradient(90deg, #00cbff 0%, #ff6200 100%);
-  padding: 10px 20px;
+  background: linear-gradient(277.59deg, #ff6200 7.17%, #00baff 92.47%);
   border-radius: 50px;
-  transition: transform 0.3s ease;
+  padding: 14px 32px;
 }
 
-.navigation__link--login:hover {
-  transform: scale(1.05);
-}
-
+/* Hamburger menu */
 .navigation__hamburger {
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
-  background: transparent;
+  background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
-  z-index: 10;
+  padding: 0.5rem;
+  z-index: 100;
 }
 
 .navigation__hamburger span {
-  height: 2px;
-  width: 100%;
-  background-color: white;
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px 0;
+  background-color: #fff;
   transition: all 0.3s ease;
 }
 
-/* Mobile responsive styles */
-@media (max-width: 768px) {
+/* Mobile Navigation */
+@media screen and (max-width: 768px) {
+  .navigation {
+    grid-template-columns: 1fr auto;
+    padding: 10px;
+  }
+
   .navigation__nav-container {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(14, 24, 38, 0.95);
+    background: rgba(10, 19, 32, 0.95);
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 999;
+    justify-content: center;
+    z-index: 99;
   }
 
   .navigation__nav-container.active {
-    transform: translateX(0);
+    display: flex;
+  }
+
+  .navigation__hamburger {
+    display: block;
+  }
+
+  .navigation__btn-container {
+    display: none;
   }
 
   .navigation__nav-list {
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
+    gap: 20px;
   }
 
-  .navigation__btn-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+  .navigation__hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .navigation__hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navigation__hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
   }
 }
 
@@ -2137,4 +2089,99 @@ a.register-btn:hover {
     width: 35px;
     height: 35px;
   }
+}
+
+/* Navigation styles override - ensuring course pages use the common styles */
+
+/* Header and Navigation */
+.course-details-header {
+  background-image: url("./images/hero-bg.jpg");
+  background-size: cover;
+  width: 100%;
+  max-width: 1440px;
+  height: 505px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  color: white;
+  margin-bottom: 4rem;
+}
+
+/* Override previous navigation styles */
+.header,
+.man-nav-container,
+.main-nav,
+.main-nav a,
+.main-nav ul,
+.main-nav ul li,
+.explore {
+  /* Reset styles to prevent conflicts with common-navigation.css */
+  all: unset;
+}
+
+/* Use the common navigation styles from common-navigation.css */
+.course-details-header .navigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  padding: 17px 0 17px;
+  height: auto;
+  /* Transparent background since header has background */
+  background: transparent;
+}
+
+/* Keep the breadcrumb navigation styles */
+.course-nav {
+  margin: 125px 0 1rem 0;
+  display: flex;
+  justify-content: left;
+}
+
+.course-nav a {
+  font-size: 1rem;
+  display: inline;
+  color: rgb(255, 255, 255);
+  font-family: "Exo", sans-serif;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.course-nav img {
+  margin: 5px 5px 0 5px;
+  height: 10px;
+  width: 10px;
+  filter: brightness(0) invert(1);
+}
+
+/* Mobile Navigation adjustments */
+@media screen and (max-width: 768px) {
+  .course-details-header {
+    height: auto;
+    min-height: 550px;
+    padding-bottom: 20px;
+  }
+
+  .course-nav {
+    margin: 100px 0 1rem 0;
+  }
+}
+
+/* Override breadcrumb colors for course pages with image background */
+.course-details-header .course-nav a {
+  color: #ffffff;
+  /* White text for breadcrumb on course detail pages */
+}
+
+.course-details-header .course-nav img {
+  filter: brightness(0) invert(1);
+  /* Make breadcrumb arrows white */
+}
+
+/* Override navigation link colors for course pages with image background */
+.course-details-header .navigation__nav-link,
+.course-details-header .navigation__link:not(.navigation__link--login) {
+  color: #ffffff;
+  /* White text for nav links on course detail pages */
 }

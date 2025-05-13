@@ -11,7 +11,9 @@
     href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./cooursedetailspage-CertDS-style.css" />
+  <link rel="stylesheet" href="./common-navigation.css" />
   <script defer src="./script-coursepage.js"></script>
+  <script defer src="./script.js"></script>
   <title>Digital Nexus AI</title>
 </head>
 
@@ -19,29 +21,30 @@
   <header class="course-details-header">
     <div class="navigation">
       <div class="navigation__logo-container">
-        <a href="./index.html" class="navigation__logo-text">
-          <img src="./Logo/DNA Logo symbol.svg" alt="Logo" class="navigation__logo-image" />
-          <span class="navigation__logo-title">DigitalNexusAI</span>
+        <img src="./images/dna-logo-navigation.svg" alt="Digital Nexus AI Logo" class="navigation__logo-image">
+        <a href="index.html" class="navigation__logo-link">
+          <p class="navigation__logo-title">DigitalNexusAI</p>
         </a>
       </div>
-      <div class="navigation__nav-container">
-        <nav class="navigation__nav">
-          <ul class="navigation__nav-list">
-            <li><a href="./coursepage.html" class="navigation__nav-link">Explore</a></li>
-            <li><a href="./coming-soon.html" class="navigation__nav-link">Teach on DNA</a></li>
-            <li><a href="./index.html#meet-dna" class="navigation__nav-link">About Us</a></li>
-          </ul>
-        </nav>
-        <div class="navigation__btn-container">
-          <a href="./login.html" class="navigation__link">Login</a>
-          <a href="./register.html" class="navigation__link navigation__link--login">Register</a>
-        </div>
-      </div>
-      <button class="navigation__hamburger">
+
+      <!-- Hamburger menu button (visible only on mobile) -->
+      <button class="navigation__hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
+      <!-- Navigation menu items (hidden on mobile until hamburger is clicked) -->
+      <nav class="navigation__nav-container">
+        <ul class="navigation__nav-list">
+          <li><a href="index.html" class="navigation__nav-link">Home</a></li>
+          <li><a href="coursepage.html" class="navigation__nav-link">Courses</a></li>
+          <li><a href="index.html#product-showcase" class="navigation__nav-link">Products</a></li>
+          <li><a href="contact.html" class="navigation__nav-link">Contact</a></li>
+          <li><a href="login.html" class="navigation__link">Login</a></li>
+          <li><a href="register.html" class="navigation__link navigation__link--login">Register</a></li>
+        </ul>
+      </nav>
     </div>
     <div class="course-nav">
       <a href="./index.html">Home</a><img src="./images/right-arrow.png" alt="arrow" /><a
