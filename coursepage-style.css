@@ -1,0 +1,120 @@
+.course-explorer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    min-height: 400px;
+    position: relative;
+    padding: 1rem;
+}
+
+.course-card {
+    background-color: #0e1826;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    margin: 0 auto;
+    margin-bottom: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.course-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.course-card__content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-card__title {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.course-card__instructor {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.course-card__rating {
+    color: rgb(255, 255, 252);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.course-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+.course-card__price {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+    .course-explorer__grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 0.5rem;
+    }
+
+    .course-card {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .course-card__title {
+        font-size: 1.1em;
+    }
+
+    .course-card__content {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-explorer__grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .course-card__image {
+        height: 180px;
+    }
+
+    .course-card__title {
+        font-size: 1em;
+    }
+
+    .course-card__instructor,
+    .course-card__rating,
+    .course-card__meta {
+        font-size: 0.85em;
+    }
+}

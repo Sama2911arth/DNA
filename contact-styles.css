@@ -1,0 +1,133 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-left,
+.contact-form {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info {
+    margin-bottom: 2rem;
+}
+
+.contact-form {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #00cbff;
+    outline: none;
+}
+
+.phone-input {
+    display: flex;
+    gap: 1rem;
+}
+
+.phone-input select {
+    width: 120px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.phone-input input {
+    flex: 1;
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background: linear-gradient(277.59deg, #ff6200 7.17%, #00baff 92.47%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .contact-left,
+    .contact-form {
+        width: 100%;
+    }
+
+    .contact-form {
+        padding: 1.5rem;
+    }
+
+    .phone-input {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .phone-input select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+
+    .contact-form {
+        padding: 1rem;
+    }
+
+    .form-control,
+    .phone-input select,
+    .submit-btn {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+}
